@@ -1,13 +1,28 @@
-<!DOCTYPE html>
-<html>
-    <head>
-	    <title>laravel</title>
+@extends('layouts.app')
+
+
+
+@section('content')
+
+    <h1>Contact Page</h1>
+	
+	@if (count($people))
 		
-		<link href="https://fonts.googleap
-	</head>
-	<body>
-	     <div class="container">
-		     <h1>Contact page</h1>
-		 </div>
-	</body>
-</html>
+	<ul>
+	@foreach($people as $person)
+	
+	    <li>{{$person}}</li>
+		
+	@endforeach
+	</ul>
+	
+@endif
+	
+@stop
+
+
+@section('footer')
+
+   <script>alert("hello visitor")</script>
+  
+@stop

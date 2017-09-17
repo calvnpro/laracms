@@ -11,3 +11,14 @@
 		 </div>
 	</body>
 </html>
+-->
+
+@extends('layouts.app')
+
+
+
+@section('content')
+
+   <h1>post {{$id}} {{$name}} {{$password}}</h1>
+   
+@stop
