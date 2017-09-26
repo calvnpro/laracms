@@ -11,18 +11,14 @@
 |
 */
 
-//Route::get('/', function () {
-   // return view('welcome');
-	//});
+Route::get('/', function () {
+    return view('welcome');
+	});
 	
 	
-	//Route::get('/post/{id}', 'PostsController@index');
-	
-	Route::resource('posts', 'PostsController');
-	
-	Route::get('/contact', 'PostsController@contact');
-	
-	Route::get('post/{id}/{name}/{password}', 'PostsController@show_post');
-
+	Route::get('/insert', function(){
+		DB::insert("INSERT INTO posts(title, content) values(?, ?)",['PHP with laravel', 'laravel is the Best Thing that happern to PHP']);
+		
+	});
 
 
