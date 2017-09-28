@@ -1,6 +1,7 @@
 <?php
 
 use App\Post;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,75 +14,75 @@ use App\Post;
 |
 */
 
-Route::get('/', function () {
+ Route::get('/', function () {
     return view('welcome');
 	});
 	
-	Route::get('/read', function(){
-		$posts = Post::all();
-		foreach($posts as $post){
-			return $post->title;
-		}
-	});
+	//Route::get('/read', function(){
+	//	$posts = Post::all();
+    //foreach($posts as $post){
+	//return $post->title;
+	//}
+	//});
 	
-	Route::get('/find', function(){
-		$post = Post::find(1);
-		return $post ->title;
-	});
+	//Route::get('/find', function(){
+		//$post = Post::find(1);
+		//return $post ->title;
+	//});
 	
-	Route::get('/findwhere', function(){
-		$posts = Post::where('is_admin', 0)->orderBy('id', 'desc')->take(1)->get();
-		return $posts;
-	});
+	//Route::get('/findwhere', function(){
+		//$posts = Post::where('is_admin', 0)->orderBy('id', 'desc')->take(1)->get();
+		//return $posts;
+	//});
 	
-	Route::get('findmore', function(){
-		$posts = Post::findOrFail(5);
-		return $posts;
-	});
+	//Route::get('findmore', function(){
+		//$posts = Post::findOrFail(5);
+		//return $posts;
+	//});
 	
-	Route::get('/basicinsert', function(){
-		$post = new Post;
-		$post->title = 'New Eloquent Title';
-		$post->content = 'Wow Eloquent is really cool';
-		$post->save();
-	});
+	//Route::get('/basicinsert', function(){
+		//$post = new Post;
+		//$post->title = 'New Eloquent Title';
+		//$post->content = 'Wow Eloquent is really cool';
+		//$post->save();
+	//});
 	
-	Route::get('/create', function(){
-		post::create(['title'=> 'create method', 'content' => 'saya belajar banyak hari ini']);
-	});
+	//Route::get('/create', function(){
+		//post::create(['title'=> 'create method', 'content' => 'saya belajar banyak hari ini']);
+	//});
 	
-	Route::get('/basicupdate', function(){
-		$post = Post::find(2);
+	//Route::get('/basicupdate', function(){
+		//$post = Post::find(2);
 		
-		$post->title = 'Updated Eloquent Title';
-		$post->content = 'Updated Eloquent Content';
+		//$post->title = 'Updated Eloquent Title';
+		//$post->content = 'Updated Eloquent Content';
 		
-		$post->save();
-	});
+		//$post->save();
+	//});
 	
-	Route::get('/update', function(){
-		Post::where('id',2)->where('is_admin',0)->update(['title' => 'NEW PHP TITLE', 'content' => 'I Love Learning Laravel']);
-	});
+	//Route::get('/update', function(){
+		//Post::where('id',2)->where('is_admin',0)->update(['title' => 'NEW PHP TITLE', 'content' => 'I Love Learning Laravel']);
+	//});
 	
-	Route::get('/delete', function(){
-		$post = Post::find(2);
-		$post->delete();
-	});
+	//Route::get('/delete', function(){
+		//$post = Post::find(2);
+		//$post->delete();
+	//});
 		
-    Route::get('/delete2', function(){
-		Post::destroy(4);
-	});
+    //Route::get('/delete2', function(){
+		//Post::destroy(4);
+	//});
 		
 	
-	Route::get('/delete3', function(){
-		Post::where('is_admin',0)->delete();
-	});
+	//Route::get('/delete3', function(){
+		//Post::where('is_admin',0)->delete();
+	//});
 	
-	Route::get('/softdelete', function(){
-		Post::find(5)->delete();
-	});
+	//Route::get('/softdelete', function(){
+		//Post::find(5)->delete();
+	//});
 	
-	Route::get('/readsoftdelete', function(){
+	//Route::get('/readsoftdelete', function(){
 		//$post = Post::find(5);
 		//return $post;
 		
@@ -91,17 +92,17 @@ Route::get('/', function () {
 		//$post = Post::withTrashed()->get();
 		//return $post;
 		
-		$post = Post::onlyTrashed()->get();
-		return $post;
-	});
+		//$post = Post::onlyTrashed()->get();
+		//return $post;
+	//});
 	
-	Route::get('/restore',function(){
-		Post::withTrashed()->where('id', 5)->restore();
-	});
+	//Route::get('/restore',function(){
+		//Post::withTrashed()->where('id', 5)->restore();
+	//});
 	
-	Route::get('/forcedelete', function(){
-		Post::onlyTrashed()->where('is_admin', 0)->forceDelete();
-	});
+	//Route::get('/forcedelete', function(){
+		//Post::onlyTrashed()->where('is_admin', 0)->forceDelete();
+	//});
 	
 	//Route::get('/insert', function(){
 	//	DB::insert("INSERT INTO posts(title, content) values(?, ?)",['PHP with laravel', 'laravel is the Best Thing that happern to PHP']);
@@ -129,6 +130,11 @@ Route::get('/', function () {
 		//return $deleted;
 		
 	//});
+	
+	// One to One Relationship
+	Route::get('user/{id}/post', function($id){
+		return User::find($id)->post->title;
+	});
 	
 	
 
